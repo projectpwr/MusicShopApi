@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Dapper": "1.50.2",
+    "Dapper.Contrib": "1.50.0",
+    "Moq": "4.7.8",
+    "NETStandard.Library": "1.6.0",
+    "NUnit": "3.6.1",
+    "NUnit.Console": "3.6.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
