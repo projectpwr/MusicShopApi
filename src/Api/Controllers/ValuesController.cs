@@ -23,7 +23,8 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return String.Format("value: {0}", id);
+            //return String.Format("value: {0}", id);
+            return $"this is the new way, your id is {id}";
         }
 
         // POST api/values
