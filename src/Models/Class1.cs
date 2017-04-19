@@ -10,9 +10,11 @@ namespace Models
         public Class1()
         { }
 
-        public IEnumerable<string> something()
+        public string something()
         {
-            return new List<string>{ "Oh hi there" };
+
+
+            return "Oh hi there";
         }
         
     }

@@ -14,9 +14,9 @@ namespace Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            //return new string[] { "value1", "value2" };
-            var model = new Class1();
-            return model.something();
+            return new string[] { "value1", "value2" };
+            //var model = new Class1();
+            //return model.something();
         }
 
         // GET api/values/5
