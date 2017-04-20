@@ -1,9 +1,9 @@
-{
+﻿{
   "version": "1.0.0-*",
 
   "dependencies": {
-    "DataAccess": "1.0.0-*",
-    "NETStandard.Library": "1.6.1"
+    "NETStandard.Library": "1.6.1",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.1"
   },
 
   "frameworks": {
