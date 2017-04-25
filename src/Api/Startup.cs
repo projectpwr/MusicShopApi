@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using DataAccess.Data;
 
 namespace Api
 {
@@ -35,6 +36,9 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            //services.AddDbContext<MusicShopContext>(options =>
+              //      options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
