@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Data
 {
-    public class MusicShopContext : DbContext
-    {   
-        public MusicShopContext() { }
-        public MusicShopContext(DbContextOptions<MusicShopContext> options) : base(options)
+    public class MusicShopDbContext : DbContext
+    {
+        //public MusicShopDbContext() { }
+
+        public MusicShopDbContext(DbContextOptions<MusicShopDbContext> options) : base(options)
         {
         }
 
