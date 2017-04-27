@@ -8,9 +8,10 @@ using DataAccess.Data;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicShopDbContext))]
-    partial class MusicShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170427202521_ManufacturersLinkToAddress")]
+    partial class ManufacturersLinkToAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

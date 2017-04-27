@@ -14,5 +14,6 @@ namespace DataAccess.Data
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }

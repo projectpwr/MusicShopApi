@@ -8,9 +8,10 @@ using DataAccess.Data;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicShopDbContext))]
-    partial class MusicShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170427201917_newAddressEntity")]
+    partial class newAddressEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
@@ -31,13 +32,9 @@ namespace DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AddressId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.ToTable("Manufacturers");
                 });
@@ -74,14 +71,6 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-                });
-
-            modelBuilder.Entity("DataAccess.Entities.Manufacturer", b =>
-                {
-                    b.HasOne("DataAccess.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Product", b =>
