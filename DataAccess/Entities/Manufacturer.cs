@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using DataAccessInterfaces;
 
 namespace DataAccess.Entities
 {
     public class Manufacturer : IManufacturer
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public int Id { get; private set; }
+        [Required]
+        [MaxLength(100)]
+        public string Name { get; private set; }
+        [Required]
+        public int AddressId { get; private set; }
+        public Address Address { get; private set; }
 
         public Manufacturer()
         {
