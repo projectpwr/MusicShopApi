@@ -1,5 +1,4 @@
-﻿using DataAccessInterfaces.Data;
-using DataAccessInterfaces.Entities;
+﻿using DataAccessInterfaces.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
