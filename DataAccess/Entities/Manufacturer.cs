@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using DataAccessInterfaces;
+using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Manufacturer : IManufacturer
+    public class Manufacturer : IManufacturer, IEntity
     {
         public int Id { get; private set; }
+        public byte[] RowVersion { get; private set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; private set; }
@@ -17,16 +19,15 @@ namespace DataAccess.Entities
         public int AddressId { get; private set; }
         public Address Address { get; private set; }
 
-        public Manufacturer()
-        {
-            this.Id= 1;
-            this.Name = "default name";
-        }
-
         public Manufacturer(string name)
         {
-            this.Id = 099;
-            this.Name = name;
+            Name = name;
+        }
+
+        public Manufacturer(string name, int addressId)
+        {
+            Name = name;
+            AddressId = addressId;
         }
 
 

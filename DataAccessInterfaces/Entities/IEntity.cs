@@ -4,9 +4,9 @@ using System.Text;
 
 namespace DataAccessInterfaces.Entities
 {
-    interface IEntity
+    public interface IEntity
     {
-        int Id { get; set; }
-        byte[] RowVersion { get; set; }
+        int Id { get; }
+        byte[] RowVersion { get; }
     }
 }

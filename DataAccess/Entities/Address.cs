@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Address
+    public class Address : IEntity
     {
-        public int Id { get; set; }
-        string FirstLine { get; set; }
-        string SecondLine { get; set; }
-        string ThirdLine { get; set; }
-        string Town { get; set; }
-        string County { get; set; }
-        string Country { get; set; }
-        string Postcode { get; set; }
+        public int Id { get; private set; }
+        public byte[] RowVersion { get; private set; }
+        public string FirstLine { get; private set; }
+        public string SecondLine { get; private set; }
+        public string ThirdLine { get; private set; }
+        public string Town { get; private set; }
+        public string County { get; private set; }
+        public string Country { get; private set; }
+        public string Postcode { get; private set; }
 
         public Address(string firstline, string secondline, string thirdline, string town, 
             string county, string country, string postcode)
