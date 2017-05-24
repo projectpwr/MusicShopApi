@@ -28,7 +28,7 @@ namespace Services.Tests
             var target = new SomeProduct(mockIManufacturer.Object);
 
             var actual = target.GetManufacturersName();
-            Assert.Equal("a test nameS", actual);
+            Assert.Equal("a test name", actual);
         }
     }
 }
