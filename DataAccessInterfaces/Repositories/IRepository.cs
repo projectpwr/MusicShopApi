@@ -1,19 +1,26 @@
 ﻿using DataAccessInterfaces.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace DataAccessInterfaces.Repositories
 {
-    interface IRepository<T> where T : IEntity
+    public interface IRepository
     {
-  
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        void Save();
-        T Get(int Id);
-        IEnumerable<T> GetAll();
-        IEnumerable<T> GetBy(Expression<Func<T, bool>> predicate);
+
+        void Add<T>(T entity) where T : class, IEntity;
+        //void Update<T>(T entity);
+        //void Delete<T>(T entity);
+        //void Save();
+        //T GetById<T>(int Id);
+        IEnumerable<T> GetAll<T>() where T : class, IEntity;
+        //IEnumerable<TEntity> GetAll<TEntity>() where TEntity : IEntity;
+        //IEnumerable<T> GetBy<T>(Expression<Func<T, bool>> predicate);
+        /*IEnumerable<TEntity> GetAll<TEntity>( Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                                 string includeProperties = null,
+                                                 int? skip = null,
+                                                 int? take = null)  where TEntity : class, IEntity;*/
+
     }
 }
