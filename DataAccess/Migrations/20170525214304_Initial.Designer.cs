@@ -8,8 +8,8 @@ using DataAccess.Data;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicShopDbContext))]
-    [Migration("20170525194335_AddredRowVersionAndContraints")]
-    partial class AddredRowVersionAndContraints
+    [Migration("20170525214304_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,7 +94,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<byte[]>("RowVersion");
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 
