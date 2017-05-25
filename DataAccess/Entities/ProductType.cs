@@ -12,10 +12,16 @@ namespace DataAccess.Entities
         public byte[] RowVersion { get; private set; }
         public string Name { get; private set; }
 
-
+        public ProductType() { }
+        
         public ProductType(string name)
         {
             Name = name;
+        }
+
+        public override string ToString()
+        {
+            return Name.ToString();
         }
     }
 }
