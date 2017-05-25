@@ -16,7 +16,7 @@ namespace Api.Controllers
     public class ProductTypeController
     {
 
-        private IRepository _repository;
+        private Repository _repository;
         private MusicShopDbContextFactory _factory;
         private DbContext _context;
 
@@ -31,9 +31,25 @@ namespace Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+
             _repository.Add<ProductType>( new ProductType("randomType") );
-            var allItems =  _repository.GetAll<ProductType>().ToList();
+            _repository.Add<ProductType>(new ProductType("randomType2"));
+            _repository.Add<ProductType>(new ProductType("randomType3"));
+            _repository.Save();
+
+            ProductType prodType1 = _repository.GetById<ProductType>(1);
+           var id = prodType1.Id;
+            prodType1.Name = "Fancy Pants Renamed";
+            _repository.Update<ProductType>(prodType1);
+
+            _context.Database.ExecuteSqlCommand(
+    "UPDATE dbo.ProductTypes SET Name = 'IUH OHHH Name' WHERE Id = 1");
+
+            _repository.Save();
+
+            var allItems =  _repository.GetAll<ProductType>();
             var items = new List<string>();
+
 
             foreach(var pType in allItems)
             {

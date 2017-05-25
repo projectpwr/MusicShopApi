@@ -93,7 +93,9 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<byte[]>("RowVersion");
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
 

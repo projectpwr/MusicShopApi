@@ -7,6 +7,6 @@ namespace DataAccessInterfaces.Entities
     public interface IEntity
     {
         int Id { get; }
-        byte[] RowVersion { get; }
+        byte[] RowVersion { get; set; }
     }
 }
