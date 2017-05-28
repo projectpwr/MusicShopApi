@@ -5,7 +5,7 @@ using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Address : IEntity
+    public class Address 
     {
         public int Id { get; private set; }
         public byte[] RowVersion { get; private set; }

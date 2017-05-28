@@ -8,7 +8,7 @@ using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Manufacturer : IManufacturer, IEntity
+    public class Manufacturer : IManufacturer
     {
         public int Id { get; private set; }
         public byte[] RowVersion { get; private set; }
