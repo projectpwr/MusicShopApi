@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
+    <PackageReference Include="Newtonsoft.Json.Schema" Version="2.0.12" />
   </ItemGroup>
   
   <ItemGroup>
