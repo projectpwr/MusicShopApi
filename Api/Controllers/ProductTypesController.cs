@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using DataAccess.Entities;
 using DataAccess.Data;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
@@ -21,24 +17,20 @@ namespace Api.Controllers
         private Repository _repository;
         private MusicShopDbContextFactory _factory;
         private DbContext _context;
+        private JSchema _schema;
 
         public ProductTypesController()
         {
             _factory = new MusicShopDbContextFactory();
             _context = _factory.Create(new DbContextFactoryOptions());
             _repository = new Repository(_context);
+            _schema = JSchema.Parse(getJsonSchema());
         }
 
         // GET api/producttypes
         [HttpGet]
         public string Get()
         {
-
-            //_context.Database.ExecuteSqlCommand(
-    //"UPDATE dbo.ProductTypes SET Name = 'IUH OHHH Name' WHERE Id = 1");
-
-            //_repository.Save();
-
             var allProductTypes =  _repository.GetAll<ProductType>();
             return JsonConvert.SerializeObject( allProductTypes, Formatting.Indented );
         }
@@ -53,36 +45,56 @@ namespace Api.Controllers
 
         // POST api/producttypes
         [HttpPost]
-        public string Post([FromBody] JObject productType)
+        public IActionResult Create([FromBody] JObject productTypeJObject)
         {
+            try
+            {
+                bool isPayloadAValidProductType = productTypeJObject.IsValid(_schema);
 
-            JSchema schema = JSchema.Parse(getJsonSchema());
+                if (isPayloadAValidProductType)
+                {
+                    ProductType productType = productTypeJObject.ToObject<ProductType>();
+                    _repository.Add<ProductType>(productType);
+                    _repository.Save();
+                    return new OkResult();
+                }
+                else
+                {
+                    return new BadRequestResult();
+                }
+            }
+            catch
+            {
+                return new BadRequestResult();
+            }
 
-
-            ProductType prodType = productType.ToObject<ProductType>();
-
-            //JObject productType = JObject.Parse(test);
-
-            bool isPayloadValidProductType = productType.IsValid(schema);
-
-            //ProductType results = JsonConvert.DeserializeObject<ProductType>(productType);
-            return JsonConvert.SerializeObject(prodType, Formatting.Indented);
-            //deserialize
-
-            //validate payload
-
-            /*
-            _repository.Add<ProductType>(new ProductType("randomType"));
-            _repository.Add<ProductType>(new ProductType("randomType2"));
-            _repository.Add<ProductType>(new ProductType("randomType3"));
-            _repository.Save();
-            */
         }
 
+        //PUT request says entire entity should be sent across and updated all at once.
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Update(int id, [FromBody]JObject productTypeJObject)
         {
+            if(productTypeJObject == null || (int)productTypeJObject.Property("Id") != id || !productTypeJObject.IsValid(_schema))
+            {   
+              return new BadRequestObjectResult(_schema);
+            }
+
+            ProductType productType = productTypeJObject.ToObject<ProductType>();
+            ProductType productTypeFromDB = _repository.GetById<ProductType>(productType.Id);
+
+            if(productTypeFromDB != null)
+            {
+                productTypeFromDB.Name = productType.Name;
+                productTypeFromDB.RowVersion = productType.RowVersion;
+                _repository.Update<ProductType>(productTypeFromDB);
+                _repository.Save();
+                return new OkObjectResult(productTypeFromDB);
+            }
+            else
+            {
+                return new NotFoundObjectResult(productType);
+            }
         }
 
         // DELETE api/values/5
@@ -119,6 +131,15 @@ namespace Api.Controllers
             // }
             return schema.ToString();
         }
+
+
+
+
+        //_context.Database.ExecuteSqlCommand(
+        //"UPDATE dbo.ProductTypes SET Name = 'IUH OHHH Name' WHERE Id = 1");
+
+        //_repository.Save();
+
     }
 }
 
