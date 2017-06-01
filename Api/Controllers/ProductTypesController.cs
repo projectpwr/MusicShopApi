@@ -99,8 +99,20 @@ namespace Api.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+
+            ProductType productType = _repository.GetById<ProductType>(id);
+            if(productType == null){
+                return new NotFoundObjectResult(id);
+            }
+            else
+            {
+                _repository.Delete(productType);
+                _repository.Save();
+                return new OkResult();
+            }
+
         }
 
 
