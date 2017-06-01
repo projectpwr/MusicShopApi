@@ -47,35 +47,28 @@ namespace Api.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] JObject productTypeJObject)
         {
-            try
-            {
-                bool isPayloadAValidProductType = productTypeJObject.IsValid(_schema);
-
-                if (isPayloadAValidProductType)
-                {
-                    ProductType productType = productTypeJObject.ToObject<ProductType>();
-                    _repository.Add<ProductType>(productType);
-                    _repository.Save();
-                    return new OkResult();
-                }
-                else
-                {
-                    return new BadRequestResult();
-                }
-            }
-            catch
+            if (IsProductTypePayloadINVALID(productTypeJObject))
             {
                 return new BadRequestResult();
             }
+            else
+            {
+                ProductType productType = productTypeJObject.ToObject<ProductType>();
+                _repository.Add<ProductType>(productType);
+                _repository.Save();
+                return new OkResult();
+            }
+    
 
         }
 
-        //PUT request says entire entity should be sent across and updated all at once.
-        // PUT api/values/5
+
+        // PUT api/values/5    PUT request says entire entity should be sent across and updated all at once.
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]JObject productTypeJObject)
         {
-            if(productTypeJObject == null || (int)productTypeJObject.Property("Id") != id || !productTypeJObject.IsValid(_schema))
+            
+           if (IsProductTypePayloadINVALID(productTypeJObject))
             {   
               return new BadRequestObjectResult(_schema);
             }
@@ -94,6 +87,18 @@ namespace Api.Controllers
             else
             {
                 return new NotFoundObjectResult(productType);
+            }
+        }
+
+        private bool IsProductTypePayloadINVALID(JObject productTypePayload)
+        {
+            if(productTypePayload == null || !productTypePayload.IsValid(_schema))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -119,28 +124,8 @@ namespace Api.Controllers
 
         private string getJsonSchema()
         {
-
-            //CHANGE THIS TO BE AN EXTENSION METHOD OF ANYTHING THAT IMPLEMENTS IENTITY
-            string jsonSchema = @"{
-                                       'description': 'ProductType',
-                                       'type': 'object',
-                                       'properties':
-                                       {
-                                         'Name': {'type':'string'},
-                                     
-                                       },
-                                       'required': ['Name']
-                                     }";
-
             JSchemaGenerator generator = new JSchemaGenerator();
             JSchema schema = generator.Generate(typeof(ProductType));
-            // {
-            //   "type": "object",
-            //   "properties": {
-            //     "email": { "type": "string", "format": "email" }
-            //   },
-            //   "required": [ "email" ]
-            // }
             return schema.ToString();
         }
 
