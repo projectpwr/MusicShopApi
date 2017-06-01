@@ -10,10 +10,10 @@ namespace DataAccessInterfaces.Repositories
     {
 
         void Add<T>(T entity) where T : class, IEntity;
-        //void Update<T>(T entity);
-        //void Delete<T>(T entity);
-        //void Save();
-        //T GetById<T>(int Id);
+        void Update<T>(T entity) where T : class, IEntity;
+        void Delete<T>(T entity) where T : class, IEntity;
+        void Save();
+        T GetById<T>(int Id) where T : class, IEntity;
         IEnumerable<T> GetAll<T>() where T : class, IEntity;
         //IEnumerable<TEntity> GetAll<TEntity>() where TEntity : IEntity;
         //IEnumerable<T> GetBy<T>(Expression<Func<T, bool>> predicate);

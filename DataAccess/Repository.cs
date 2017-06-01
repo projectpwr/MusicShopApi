@@ -23,14 +23,19 @@ namespace DataAccess
             _context.Set<T>().Add(entity);
         }
 
-        public IEnumerable<T> GetAll<T>() where T : class, IEntity
-        {
-            return _context.Set<T>().ToList();
-        }
-
         public void Update<T>(T entity) where T : class, IEntity
         {
             _context.Set<T>().Update(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class, IEntity
+        {
+            _context.Set<T>().Remove(entity);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
 
         public T GetById<T>(int Id) where T : class, IEntity
@@ -38,11 +43,11 @@ namespace DataAccess
             return _context.Set<T>().Find(Id);
         }
 
-        
-        public void Save()
+        public IEnumerable<T> GetAll<T>() where T : class, IEntity
         {
-            _context.SaveChanges();
+            return _context.Set<T>().ToList();
         }
+
 
 
 
