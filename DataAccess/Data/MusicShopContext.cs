@@ -1,15 +1,17 @@
 ﻿using DataAccess.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Data
 {
-    public class MusicShopDbContext : DbContext
+    public class MusicShopDbContext : IdentityDbContext<UserEntity>
     {
         //public MusicShopDbContext() { }
 
         public MusicShopDbContext(DbContextOptions<MusicShopDbContext> options) : base(options)
         {
         }
+
 
         public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Product> Products { get; set; }

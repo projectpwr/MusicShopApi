@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DataAccess.Data;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DataAccess.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace Api
 {
@@ -35,8 +35,35 @@ namespace Api
             // Add in EF
             services.AddEntityFramework(MusicShopDbContextFactory.GetDefaultMusicShopDbConnection());
 
+            services.AddIdentity<UserEntity, IdentityRole>()
+                    .AddEntityFrameworkStores<MusicShopDbContext>()
+                    .AddDefaultTokenProviders();
+
             // Add framework services.
             services.AddMvc();
+
+            //intercept any unauthorized requests that come inot the api and rather than redirecting to account/login 
+            //(since were using identity) return a 401 unauthorized header
+            services.Configure<IdentityOptions>(config =>
+                {
+                    config.Cookies.ApplicationCookie.Events =
+                        new CookieAuthenticationEvents
+                        {
+                            //default action when we are not logged in is to redirect to login, we're adjusting the behaviour of this here...
+                            OnRedirectToLogin = ctx =>
+                            {
+                                if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                                {
+                                    ctx.Response.StatusCode = 401;
+                                    return Task.FromResult<object>(null);
+                                }
+
+                                ctx.Response.Redirect(ctx.RedirectUri);
+                                return Task.FromResult<object>(null);
+                            }
+                        };
+                });
+            
         }
 
 
@@ -47,6 +74,7 @@ namespace Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseIdentity();
             app.UseMvc();
 
             DbInitializer.Initialize(context);
