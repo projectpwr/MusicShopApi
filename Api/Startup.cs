@@ -36,9 +36,12 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add in EF
+
+
+
             services.AddEntityFramework(MusicShopDbContextFactory.GetDefaultMusicShopDbConnection());
 
-            services.AddIdentity<UserEntity, IdentityRole>()
+            services.AddIdentity<UserEntity, UserRole>()
                     .AddEntityFrameworkStores<MusicShopDbContext>()
                     .AddDefaultTokenProviders();
 
