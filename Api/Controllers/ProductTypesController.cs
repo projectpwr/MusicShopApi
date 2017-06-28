@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using DataAccess.Entities;
+﻿using DataAccess;
 using DataAccess.Data;
-using DataAccess;
+using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {

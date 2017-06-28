@@ -1,12 +1,15 @@
 ﻿using DataAccess.Data;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Tokens;
+using Services.Models;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Api
@@ -42,6 +45,7 @@ namespace Api
             // Add framework services.
             services.AddMvc();
 
+            services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
             //intercept any unauthorized requests that come inot the api and rather than redirecting to account/login 
             //(since were using identity) return a 401 unauthorized header
             services.Configure<IdentityOptions>(config =>
@@ -74,7 +78,22 @@ namespace Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppConfiguration:Key").Value)),
+                    ValidAudience = Configuration.GetSection("AppConfiguration:SiteUrl").Value,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = Configuration.GetSection("AppConfiguration:SiteUrl").Value
+                }
+            });
+
             app.UseIdentity();
+
             app.UseMvc();
 
             DbInitializer.Initialize(context);
