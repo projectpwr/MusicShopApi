@@ -1,8 +1,13 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess;
+using DataAccess.Data;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,32 +15,31 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/v1/[controller]")]
-    public class RolesController : ControllerBase
+    public class RolesController : DomainControllerBase
     {
 
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-       
-        private readonly RoleManager<UserRole> _roleManager;
-
-        public RolesController( RoleManager<UserRole> roleManager ){
+        public RolesController( RoleManager<IdentityRole> roleManager)
+        {
             _roleManager = roleManager;
         }
 
-        /*
 
 
+        
        [HttpPost]
-       public async Task<IActionResult> Create([FromBody] UserRole model)
+       public async Task<IActionResult> Create([FromBody] IdentityRole model)
        {
 
            //validateInboundModel()
-           if (!ModelState.IsValid)
+           if (!ModelState.IsValid || model == null)
            {
                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(modelError => modelError.ErrorMessage).ToList());
            }
 
 
-           var role = new UserRole { Name = model.Name };
+           var role = new IdentityRole { Name = model.Name };
            var result = await _roleManager.CreateAsync(role);
 
            //validateResultSucceeded()
@@ -46,26 +50,31 @@ namespace Api.Controllers
 
            return Ok();
        }
+       
 
 
-           */
+          
 
 
-        /*
-        [HttpGet]
-        public List<UserRole> Get()
-        {
-            return _roleManager.Roles.ToList();
-        }
-        */
+        
+
 
         [HttpGet]
-        public string Get()
+        public string GetAll()
         {
-            return "";
-            //return JsonConvert.SerializeObject(_roleManager.Roles.ToList(), Formatting.Indented);
+            return SerializeObject( _roleManager.Roles.ToList() );
         }
 
+        [HttpGet("{id}")]
+        public string GetSingle(string id)
+        {
+            var role = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
+            if(role == null)
+            {
+                return NotFound();
+            }
+            return Ok( SerializeObject(role) );
+        }
 
 
     }
