@@ -66,7 +66,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public string GetSingle(string id)
+        public IActionResult GetSingle(string id)
         {
             var role = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
             if(role == null)

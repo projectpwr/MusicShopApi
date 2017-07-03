@@ -3,6 +3,7 @@ using DataAccess.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -43,15 +44,16 @@ namespace Api
             var dbContext = dbContextFactory.Create(new DbContextFactoryOptions());
 
 
-            services.AddSingleton(dbContext);
-
-
-            // Add in EF
-            services.AddEntityFramework( connectionString );
+            //services.AddSingleton(dbContext);
 
             services.AddIdentity<UserEntity, IdentityRole>()
                     .AddEntityFrameworkStores<MusicShopDbContext>()
                     .AddDefaultTokenProviders();
+
+            // Add in EF
+            services.AddEntityFramework( connectionString );
+
+
 
             // Add framework services.
             services.AddMvc();
@@ -85,10 +87,13 @@ namespace Api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MusicShopDbContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MusicShopDbContext context, UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+
+            app.UseIdentity();
 
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
@@ -101,14 +106,16 @@ namespace Api
                     ValidateIssuerSigningKey = true,
                     ValidateLifetime = true,
                     ValidIssuer = Configuration.GetSection("AppConfiguration:SiteUrl").Value
+                    
                 }
+                
             });
 
-            app.UseIdentity();
+
 
             app.UseMvc();
 
-            DbInitializer.Initialize(context);
+            DbInitializer.Initialize(context, userManager, roleManager);
         }
     }
 }

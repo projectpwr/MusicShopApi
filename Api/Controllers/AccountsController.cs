@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Services.Models;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,6 @@ namespace Api.Controllers
             {
                 return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(modelError => modelError.ErrorMessage).ToList());
             }
-
 
             var user = new UserEntity { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -100,23 +100,34 @@ namespace Api.Controllers
             );
         }
 
-        private static IEnumerable<Claim> GetTokenClaims(UserEntity user)
+        private IEnumerable<Claim> GetTokenClaims(UserEntity user)
         {
+
+            var userRoles = _userManager.GetRolesAsync(user).Result;
+            string userRolesAsString = string.Join(",", userRoles.ToArray());
+
             return new List<Claim>
                 {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                    new Claim("roles", userRolesAsString )
                 };
         }
 
 
-        [Authorize(Roles="God")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public List<UserEntity> Get()
         {
             return _userManager.Users.ToList();
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpGet("{id}")]
+        public List<UserEntity> Get(int id)
+        {
+            return _userManager.Users.ToList();
+        }
 
 
 
