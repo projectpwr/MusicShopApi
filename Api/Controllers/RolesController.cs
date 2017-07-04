@@ -1,19 +1,13 @@
-﻿using DataAccess;
-using DataAccess.Data;
-using DataAccess.Entities;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
+    [Authorize(Roles="Admin")]
     [Route("api/v1/[controller]")]
     public class RolesController : DomainControllerBase
     {

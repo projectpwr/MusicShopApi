@@ -3,15 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Services.Models;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -55,8 +48,6 @@ namespace Api.Controllers
             {
                 return BadRequest(result.Errors.Select(x => x.Description).ToList());
             }
-
-            await _signInManager.SignInAsync(user, false);
 
             return Ok();
         }
