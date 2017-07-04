@@ -51,14 +51,6 @@ namespace Api.Controllers
            return Ok();
        }
        
-
-
-          
-
-
-        
-
-
         [HttpGet]
         public string GetAll()
         {
