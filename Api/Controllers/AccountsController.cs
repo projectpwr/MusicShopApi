@@ -17,9 +17,8 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/v1/[controller]")]
-    public class AccountsController : ControllerBase
+    public class AccountsController : DomainControllerBase
     {
-
         private readonly UserManager<UserEntity> _userManager;
         private readonly SignInManager<UserEntity> _signInManager;
         private readonly IPasswordHasher<UserEntity> _passwordHasher;
@@ -37,33 +36,10 @@ namespace Api.Controllers
             _appConfiguration = appConfiguration;
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AccountRegisterLogin model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(modelError => modelError.ErrorMessage).ToList());
-            }
-
-            var user = new UserEntity { UserName = model.Email, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors.Select(x => x.Description).ToList());
-            }
-
-            await _signInManager.SignInAsync(user, false);
-
-            return Ok();
-        }
-
-
-
+  
 
         [HttpPost("token")]
-        public async Task<IActionResult> Token([FromBody] AccountRegisterLogin model)
+        public async Task<IActionResult> Token([FromBody] UserRegisterLogin model)
         {
             if (!ModelState.IsValid)
             {
@@ -114,20 +90,6 @@ namespace Api.Controllers
                 };
         }
 
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet]
-        public List<UserEntity> Get()
-        {
-            return _userManager.Users.ToList();
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("{id}")]
-        public List<UserEntity> Get(int id)
-        {
-            return _userManager.Users.ToList();
-        }
 
 
 
