@@ -80,14 +80,19 @@ namespace Api.Controllers
         {
 
             var userRoles = _userManager.GetRolesAsync(user).Result;
-            string userRolesAsString = string.Join(",", userRoles.ToArray());
+            var userRolesArray = userRoles.ToArray();
 
-            return new List<Claim>
-                {
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
-                    new Claim("roles", userRolesAsString )
-                };
+            var claims = new List<Claim>{
+                                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                                            new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                                        };
+
+            for(var ii=0; ii < userRolesArray.Length; ii++)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRolesArray[ii]));
+            }
+
+            return claims;
         }
 
 
