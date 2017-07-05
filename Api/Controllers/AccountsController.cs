@@ -71,7 +71,7 @@ namespace Api.Controllers
                 issuer: _appConfiguration.Value.SiteUrl,
                 audience: _appConfiguration.Value.SiteUrl,
                 claims: GetTokenClaims(user).Union(userClaims),
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appConfiguration.Value.Key)), SecurityAlgorithms.HmacSha256)
             );
         }
