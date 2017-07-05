@@ -95,6 +95,8 @@ namespace Api
 
             app.UseIdentity();
 
+
+            //TODO: setup refresh tokens so expired bearer tokens can be refreshed automatically
             app.UseJwtBearerAuthentication(new JwtBearerOptions
             {
                 AutomaticAuthenticate = true,

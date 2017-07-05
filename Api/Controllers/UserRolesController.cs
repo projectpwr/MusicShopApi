@@ -53,6 +53,7 @@ namespace Api.Controllers
         [HttpGet]
         public IActionResult GetByRoleName(string id, string roleName)
         {
+            //TODO: try validate user and role in seperate method - get rid of copy/paste validation or this method and one above
             var user = _userManager.FindByIdAsync(id).Result;
             if (user == null)
             {
@@ -65,8 +66,6 @@ namespace Api.Controllers
             }
 
             var userRoles = _userManager.GetRolesAsync(user).Result;
-            string userRolesAsString = string.Join(",", userRoles.ToArray());
-
             var rolesFound = userRoles.Select(x => x == roleName);
 
             if (rolesFound.Count() > 0)
