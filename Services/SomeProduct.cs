@@ -4,8 +4,9 @@ using ServicesInterfaces;
 
 namespace Services
 {
-    public class SomeProduct : ISomeProduct
+    public class SomeProduct 
     {
+        /*
         private readonly IManufacturer _Manu;
 
         public SomeProduct(IManufacturer manufacturer)
@@ -17,7 +18,7 @@ namespace Services
         {
             string name = _Manu.getName();
             return name;
-        }
+        }*/
 
     }
 

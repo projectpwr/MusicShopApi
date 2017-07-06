@@ -15,13 +15,15 @@ namespace Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            /*
             var testManu = new Manufacturer("this is a custom manufactureres name");
             var testManu2 = new Manufacturer("this is a SECOND manufactureres name");
             var product = new SomeProduct(testManu);
             var product2 = new SomeProduct(testManu2);
             var name = product.GetManufacturersName();
             var name2 = product2.GetManufacturersName();
-            return new string[] { name, "value2", name2 };
+            return new string[] { name, "value2", name2 };*/
+            return new string[] { "hi" };
         }
 
         // GET api/values/5
