@@ -5,10 +5,11 @@ using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Address 
+    public class Address : IEntity
     {
-        public int Id { get; private set; }
-        public byte[] RowVersion { get; private set; }
+        public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
+
         public string FirstLine { get; private set; }
         public string SecondLine { get; private set; }
         public string ThirdLine { get; private set; }

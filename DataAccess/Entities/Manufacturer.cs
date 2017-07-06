@@ -8,33 +8,21 @@ using DataAccessInterfaces.Entities;
 
 namespace DataAccess.Entities
 {
-    public class Manufacturer : IManufacturer
+    public class Manufacturer : IEntity
     {
-        public int Id { get; private set; }
-        public byte[] RowVersion { get; private set; }
+        public int Id { get; set; }
+        public byte[] RowVersion { get; set; }
+
         [Required]
         [MaxLength(100)]
-        public string Name { get; private set; }
+        public string Name { get; set; }
         [Required]
-        public int AddressId { get; private set; }
-        public Address Address { get; private set; }
-
-        public Manufacturer(string name)
-        {
-            Name = name;
-        }
-
-        public Manufacturer(string name, int addressId)
-        {
-            Name = name;
-            AddressId = addressId;
-        }
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
 
 
-        public string getName()
-        {
-            return this.Name;
-        }
+
+
 
     }
  
