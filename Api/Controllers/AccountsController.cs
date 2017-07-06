@@ -19,15 +19,15 @@ namespace Api.Controllers
     [Route("api/v1/[controller]")]
     public class AccountsController : DomainControllerBase
     {
-        private readonly UserManager<UserEntity> _userManager;
-        private readonly SignInManager<UserEntity> _signInManager;
-        private readonly IPasswordHasher<UserEntity> _passwordHasher;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IOptions<AppConfiguration> _appConfiguration;
 
         public AccountsController(
-            UserManager<UserEntity> userManager,
-            SignInManager<UserEntity> signInManager,
-            IPasswordHasher<UserEntity> passwordHasher,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IPasswordHasher<User> passwordHasher,
             IOptions<AppConfiguration> appConfiguration)
         {
             _userManager = userManager;
@@ -63,7 +63,7 @@ namespace Api.Controllers
         }
 
 
-        private async Task<JwtSecurityToken> GetJwtSecurityToken(UserEntity user)
+        private async Task<JwtSecurityToken> GetJwtSecurityToken(User user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
 
@@ -76,7 +76,7 @@ namespace Api.Controllers
             );
         }
 
-        private IEnumerable<Claim> GetTokenClaims(UserEntity user)
+        private IEnumerable<Claim> GetTokenClaims(User user)
         {
 
             var userRoles = _userManager.GetRolesAsync(user).Result;

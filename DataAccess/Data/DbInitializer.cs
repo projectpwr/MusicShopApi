@@ -8,7 +8,7 @@ namespace DataAccess.Data
 {
     public static class DbInitializer
         {
-            public static void Initialize(MusicShopDbContext context, UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager)
+            public static void Initialize(MusicShopDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
             {                
                 //check for users
                 if ( context.Users.Any() )
@@ -22,15 +22,15 @@ namespace DataAccess.Data
                 context.Database.Migrate();
 
       
-                UserEntity admin = new UserEntity { UserName = "admin@musicshop.com", Email = "admin@musicshop.com" };
-                UserEntity basic = new UserEntity { UserName = "basic@musicshop.com", Email = "basic@musicshop.com" };
+                User admin = new User { UserName = "admin@musicshop.com", Email = "admin@musicshop.com" };
+                User basic = new User { UserName = "basic@musicshop.com", Email = "basic@musicshop.com" };
                 var adminResult = userManager.CreateAsync(admin, "Password9!").Result;
                 var userResult = userManager.CreateAsync(basic, "Password9!").Result;
                 
                 IdentityRole adminRole = new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" };
                 var roleResult = roleManager.CreateAsync(adminRole).Result;
 
-                UserEntity adminUser = userManager.Users.Where(x => x.Email == "admin@musicshop.com").First();
+                User adminUser = userManager.Users.Where(x => x.Email == "admin@musicshop.com").First();
                 var adminRoleUserResult = userManager.AddToRoleAsync(adminUser, "Admin").Result;
 
 

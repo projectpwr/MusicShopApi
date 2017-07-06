@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Data
 {
-    public class MusicShopDbContext : IdentityDbContext<UserEntity>
+    public class MusicShopDbContext : IdentityDbContext<User>
     {
         //public MusicShopDbContext() { }
 

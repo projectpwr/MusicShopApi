@@ -13,15 +13,15 @@ namespace Api.Controllers
     [Route("api/v1/[controller]")]
     public class UserController : DomainControllerBase
     {
-        private readonly UserManager<UserEntity> _userManager;
-        private readonly SignInManager<UserEntity> _signInManager;
-        private readonly IPasswordHasher<UserEntity> _passwordHasher;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IOptions<AppConfiguration> _appConfiguration;
 
         public UserController(
-            UserManager<UserEntity> userManager,
-            SignInManager<UserEntity> signInManager,
-            IPasswordHasher<UserEntity> passwordHasher,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IPasswordHasher<User> passwordHasher,
             IOptions<AppConfiguration> appConfiguration)
         {
             _userManager = userManager;
@@ -41,7 +41,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState.Values.SelectMany(v => v.Errors).Select(modelError => modelError.ErrorMessage).ToList());
             }
 
-            var user = new UserEntity { UserName = model.Email, Email = model.Email };
+            var user = new User { UserName = model.Email, Email = model.Email };
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)

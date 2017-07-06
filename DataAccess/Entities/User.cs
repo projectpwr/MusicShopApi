@@ -5,7 +5,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataAccess.Entities
 {
-    public class UserEntity : IdentityUser
+    public class User : IdentityUser
     {
+
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
     }
 }

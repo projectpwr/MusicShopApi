@@ -46,7 +46,7 @@ namespace Api
 
             //services.AddSingleton(dbContext);
 
-            services.AddIdentity<UserEntity, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<MusicShopDbContext>()
                     .AddDefaultTokenProviders();
 
@@ -87,7 +87,7 @@ namespace Api
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MusicShopDbContext context, UserManager<UserEntity> userManager, RoleManager<IdentityRole> roleManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, MusicShopDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

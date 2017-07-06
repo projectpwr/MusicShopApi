@@ -11,11 +11,11 @@ namespace Api.Controllers
     [Route("api/v1/user/{id}/roles/{roleName}")]
     public class UserRolesController : DomainControllerBase
     {
-        private readonly UserManager<UserEntity> _userManager;
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserRolesController(
-            UserManager<UserEntity> userManager,
+            UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
