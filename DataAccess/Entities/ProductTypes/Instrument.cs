@@ -9,6 +9,8 @@ namespace DataAccess.Entities.ProductTypes
     {
         public Size Size { get; set; }
         public ExperienceLevel ExperienceLevel { get; set; }
+
+        public Instrument() { }
     }
 
 

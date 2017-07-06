@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessInterfaces.Entities;
-
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace DataAccess.Entities
 {
     public class Product : IEntity
     {
         public int Id { get; set; }
+        [Timestamp]
+        [JsonProperty(Required = Required.Default)]
         public byte[] RowVersion { get; set; }
 
         public string Name { get; set; }
@@ -25,6 +28,6 @@ namespace DataAccess.Entities
         public int ProductDetailsId { get; set; }
 
 
- 
+        public Product() { }
     }
 }

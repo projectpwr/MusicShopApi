@@ -16,6 +16,6 @@ namespace DataAccess.Entities
 
         public string Name { get; set; }
 
-
+        private PaymentType() { }
     }
 }

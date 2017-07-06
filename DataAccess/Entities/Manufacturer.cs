@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using DataAccessInterfaces;
 using DataAccessInterfaces.Entities;
+using Newtonsoft.Json;
 
 namespace DataAccess.Entities
 {
     public class Manufacturer : IEntity
     {
         public int Id { get; set; }
+        [Timestamp]
+        [JsonProperty(Required = Required.Default)]
         public byte[] RowVersion { get; set; }
 
         [Required]
@@ -20,10 +23,7 @@ namespace DataAccess.Entities
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
-
-
-
-
+        private Manufacturer() { }
     }
  
 }

@@ -12,6 +12,8 @@ namespace DataAccess.Entities.ProductTypes
         public double NeckLength { get; set; }
         public GuitarType GuitarType{ get; set; }
         public Orientation Orientation { get; set; }
+
+        private Guitar() { }
     }
 
 

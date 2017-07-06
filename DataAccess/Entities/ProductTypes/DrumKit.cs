@@ -9,5 +9,9 @@ namespace DataAccess.Entities.ProductTypes
         public int NumberOfDrums { get; set; }
         public int NumberOfKickers { get; set; }
         public int NumberOfCymbols { get; set; }
+
+        private DrumKit() { }
+
+
     }
 }

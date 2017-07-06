@@ -9,18 +9,18 @@ namespace Services.Tests
     public class SomeProductTests
     {
         [Fact]
-        public void aTestThatAutoFailsShouldFail()
+        public void TestThatAutoFailsShouldFail()
         {
             Assert.False(false);
         }
 
         [Fact]
-        public void anEmptyTestShouldPass()
+        public void EmptyTestShouldPass()
         {
         }
 
         [Fact]
-        public void testSomeProductCanFindItsManufacturersNameAlongWithDependancyInjectionAndMocks()
+        public void SomeProductCanFindItsManufacturersNameAlongWithDependancyInjectionAndMocks()
         {
             /*
             var mockIManufacturer = new Mock<IManufacturer>();

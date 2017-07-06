@@ -23,7 +23,7 @@ namespace DataAccess.Entities
 
 
 
-        public ProductType() { }
+        private ProductType() { }
         
         public ProductType(string name)
         {

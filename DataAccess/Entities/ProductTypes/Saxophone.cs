@@ -9,5 +9,7 @@ namespace DataAccess.Entities.ProductTypes
         public double BellDiameter { get; set; }
         public double BodyLength { get; set; }
         public int NumberOfKeys { get; set; }
+
+        private Saxophone() { }
     }
 }

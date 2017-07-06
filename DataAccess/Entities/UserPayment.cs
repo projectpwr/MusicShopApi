@@ -23,6 +23,10 @@ namespace DataAccess.Entities
         public int PaymentTypeId { get; set; }
         public PaymentType PaymentType { get; set; }
 
+        //to map to relevant table for this payment type eg credit car perhaps...might opt for diff strategy when come to implementation stage
+        [Key]
         public int PaymentDetailsId { get; set; }
+
+        private UserPayment() { }
     }
 }
