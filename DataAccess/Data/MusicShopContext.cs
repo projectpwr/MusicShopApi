@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Entities.ProductTypes;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,20 @@ namespace DataAccess.Data
         {
         }
 
+        public DbSet<Address> Address { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Manufacturer> Manufacturer { get; set; }
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderItem> OrderItem { get; set; }
+        public DbSet<PaymentType> PaymentType { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductType> ProductType { get; set; }
+        //individual tables for specific product types
+        public DbSet<DrumKit> DrumKit { get; set; }
+        public DbSet<Guitar> Guitar { get; set; }
+        public DbSet<Saxophone> Saxophone { get; set; }
+        public DbSet<UserPayment> UserPayment { get; set; }
 
-        public DbSet<Manufacturer> Manufacturers { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductType> ProductTypes { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+
     }
 }

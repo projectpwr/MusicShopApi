@@ -10,6 +10,7 @@ namespace DataAccess.Entities
 {
     public class Product : IEntity
     {
+        [Key]
         public int Id { get; set; }
         [Timestamp]
         [JsonProperty(Required = Required.Default)]
@@ -25,6 +26,7 @@ namespace DataAccess.Entities
         public Manufacturer Manufacturer { get; set; }
 
         //link to specific product details metadata table via product type id and details id
+        //would want an index on here
         public int ProductDetailsId { get; set; }
 
 
