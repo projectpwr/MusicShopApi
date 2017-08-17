@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataAccessInterfaces.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Entities.ProductTypes
 {
-    public class DrumKit : Instrument
+    public class DrumKit : Instrument, IEntity
     {
         [Key]
         public int Id { get; set; }

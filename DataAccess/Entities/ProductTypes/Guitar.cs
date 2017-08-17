@@ -1,4 +1,5 @@
 ﻿using DataAccess.Static;
+using DataAccessInterfaces.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace DataAccess.Entities.ProductTypes
 {
-    public class Guitar : Instrument
+    public class Guitar : Instrument, IEntity
     {
         [Key]
         public int Id { get; set; }
