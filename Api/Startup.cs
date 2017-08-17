@@ -92,7 +92,11 @@ namespace Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-
+            // Shows UseCors with CorsPolicyBuilder.
+            /*
+            app.UseCors(builder =>
+                builder.WithOrigins("http://example.com"));
+                */
             app.UseIdentity();
 
 
