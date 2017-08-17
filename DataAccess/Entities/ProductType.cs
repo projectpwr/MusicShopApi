@@ -5,7 +5,8 @@ using DataAccessInterfaces.Entities;
 namespace DataAccess.Entities
 {
     public class ProductType : IEntity
-    {
+    {   
+        [Key]
         [JsonProperty(Required = Required.Default)]
         public int Id { get; private set; }
 

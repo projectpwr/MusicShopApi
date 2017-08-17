@@ -11,7 +11,7 @@ namespace DataAccess.Entities
 {
     public class Order : IEntity
     {
-
+        [Key]
         [JsonProperty(Required = Required.Default)]
         public int Id { get; set; }
 

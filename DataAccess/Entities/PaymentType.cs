@@ -6,7 +6,7 @@ namespace DataAccess.Entities
 {
     public class PaymentType : IEntity
     {
-
+        [Key]
         [JsonProperty(Required = Required.Default)]
         public int Id { get; private set; }
 

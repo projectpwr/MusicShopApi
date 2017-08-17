@@ -11,6 +11,7 @@ namespace DataAccess.Entities
 {
     public class Manufacturer : IEntity
     {
+        [Key]
         public int Id { get; set; }
         [Timestamp]
         [JsonProperty(Required = Required.Default)]

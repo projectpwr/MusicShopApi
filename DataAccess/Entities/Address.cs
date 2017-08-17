@@ -9,6 +9,7 @@ namespace DataAccess.Entities
 {
     public class Address : IEntity
     {
+        [Key]
         public int Id { get; set; }
         [Timestamp]
         [JsonProperty(Required = Required.Default)]

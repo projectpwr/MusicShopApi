@@ -9,7 +9,7 @@ namespace DataAccess.Entities
 {
     public class OrderItem : IEntity
     {
-
+        [Key]
         [JsonProperty(Required = Required.Default)]
         public int Id { get; set; }
 
