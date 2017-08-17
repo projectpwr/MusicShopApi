@@ -8,8 +8,6 @@ namespace DataAccess.Entities
 {
     public class User : IdentityUser
     {
-        [DisplayName("AddressId")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+
     }
 }

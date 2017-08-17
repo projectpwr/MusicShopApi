@@ -9,9 +9,10 @@ using DataAccess.Static;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicShopDbContext))]
-    partial class MusicShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170817215925_newEntities")]
+    partial class newEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

@@ -11,7 +11,7 @@ namespace DataAccess.Entities
     {
         [Key]
         public int Id { get; set; }
-        [Timestamp]
+
         [JsonProperty(Required = Required.Default)]
         public byte[] RowVersion { get; set; }
         [Required]
