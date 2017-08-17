@@ -26,7 +26,7 @@ namespace Api.Controllers
             _factory = new MusicShopDbContextFactory();
             _context = _factory.Create(new DbContextFactoryOptions());
             _repository = new Repository(_context);
-            _schema = JSchema.Parse(getJsonSchema());
+            _schema = JSchema.Parse(GetJsonSchema());
         }
 
         // GET api/producttypes
@@ -124,7 +124,7 @@ namespace Api.Controllers
 
 
 
-        private string getJsonSchema()
+        private string GetJsonSchema()
         {
             JSchemaGenerator generator = new JSchemaGenerator();
             JSchema schema = generator.Generate(typeof(ProductType));
