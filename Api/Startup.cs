@@ -44,7 +44,7 @@ namespace Api
             var dbContext = dbContextFactory.Create(new DbContextFactoryOptions());
 
 
-            //services.AddSingleton(dbContext);
+            services.AddCors();
 
             services.AddIdentity<User, IdentityRole>()
                     .AddEntityFrameworkStores<MusicShopDbContext>()
@@ -92,11 +92,13 @@ namespace Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            // Shows UseCors with CorsPolicyBuilder.
-            /*
+            // Shows UseCors with CorsPolicyBuilder. - allow react app to access this api. react app default port is 3000.
             app.UseCors(builder =>
-                builder.WithOrigins("http://example.com"));
-                */
+                builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                );
+                
             app.UseIdentity();
 
 
