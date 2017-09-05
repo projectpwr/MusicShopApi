@@ -63,9 +63,13 @@ namespace Api.Controllers
         }
 
 
+
+
+
         private async Task<JwtSecurityToken> GetJwtSecurityToken(User user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
+
 
             return new JwtSecurityToken(
                 issuer: _appConfiguration.Value.SiteUrl,
@@ -78,19 +82,13 @@ namespace Api.Controllers
 
         private IEnumerable<Claim> GetTokenClaims(User user)
         {
-
-            var userRoles = _userManager.GetRolesAsync(user).Result;
-            var userRolesArray = userRoles.ToArray();
-
+            var userRoles = _userManager.GetRolesAsync(user).Result.ToArray();
             var claims = new List<Claim>{
-                                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                                            new Claim(JwtRegisteredClaimNames.Sub, user.UserName)
+                                            new Claim("user_name", user.UserName),
+                                            new Claim("user_email", user.Email),
                                         };
-
-            for(var ii=0; ii < userRolesArray.Length; ii++)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, userRolesArray[ii]));
-            }
+            List<Claim> rolesClaims = userRoles.Select(x => new Claim("role", x)).ToList();
+            claims.AddRange(rolesClaims);
 
             return claims;
         }
