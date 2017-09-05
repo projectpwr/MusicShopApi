@@ -69,14 +69,14 @@ namespace Api
                             //default action when we are not logged in is to redirect to login, we're adjusting the behaviour of this here...
                             OnRedirectToLogin = ctx =>
                             {
-                                if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
-                                {
+                                //if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                                //{
                                     ctx.Response.StatusCode = 401;
                                     return Task.FromResult<object>(null);
-                                }
+                                //}
 
-                                ctx.Response.Redirect(ctx.RedirectUri);
-                                return Task.FromResult<object>(null);
+                                //ctx.Response.Redirect(ctx.RedirectUri);
+                                //return Task.FromResult<object>(null);
                             }
                         };
                 });
