@@ -29,10 +29,12 @@ namespace DataAccess.Data
                 
                 IdentityRole adminRole = new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" };
                 var roleResult = roleManager.CreateAsync(adminRole).Result;
+                IdentityRole adminRole2 = new IdentityRole { Name = "secondrole", NormalizedName = "SECONDROLE" };
+                roleResult = roleManager.CreateAsync(adminRole2).Result;
 
                 User adminUser = userManager.Users.Where(x => x.Email == "admin@musicshop.com").First();
-                var adminRoleUserResult = userManager.AddToRoleAsync(adminUser, "Admin").Result;
-
+                var t = userManager.AddToRoleAsync(adminUser, "Admin").Result;
+                var tt = userManager.AddToRoleAsync(adminUser, "secondrole").Result;
 
         }
        
