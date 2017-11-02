@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +42,9 @@ namespace Api
             var dbContextFactory = new MusicShopDbContextFactory();
             var dbContext = dbContextFactory.Create(new DbContextFactoryOptions());
 
+            //services.AddSingleton(dbContextFactory);
+            //services.AddSingleton(dbContext);
+            //services.AddSingleton<IRepository, Repository>();
 
             services.AddCors();
 

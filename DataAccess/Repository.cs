@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DataAccessInterfaces.Entities;
 using DataAccessInterfaces.Repositories;
-using DataAccessInterfaces.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DataAccess
