@@ -26,7 +26,7 @@ namespace DataAccess.Data
         public DbSet<Guitar> Guitar { get; set; }
         public DbSet<Saxophone> Saxophone { get; set; }
         public DbSet<UserPayment> UserPayment { get; set; }
-
+        public DbSet<UserAddress> UserAddress { get; set; }
 
     }
 }
